@@ -4,8 +4,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import lsteamer.elmexicano.com.docsearch.R;
-import lsteamer.elmexicano.com.docsearch.login.LoginPresenter;
-import lsteamer.elmexicano.com.docsearch.login.LoginView;
 import lsteamer.elmexicano.com.docsearch.utils.Utils;
 
 public class MainActivity extends AppCompatActivity {
@@ -16,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.login_activity);
 
         //ViewLayer
         loginView = (LoginView) getSupportFragmentManager().findFragmentById(R.id.contentFrame);

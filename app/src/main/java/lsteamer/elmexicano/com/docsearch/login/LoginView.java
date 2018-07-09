@@ -28,4 +28,6 @@ public class LoginView extends Fragment {
         return view;
     }
 
+
+
 }

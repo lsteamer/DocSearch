@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">DocSearch</string>
+    <string name="username">Username</string>
+    <string name="default_email">rowanto@uvita.eu</string>
+    <string name="password">Password</string>
+    <string name="default_password">88888888</string>
+    <string name="login">Login</string>
 </resources>
