@@ -9,6 +9,8 @@ public interface LoginContract {
         String getTextInputPassword();
         void setUsernameErrorTitle(String s);
         void setPasswordErrorTitle(String s);
+        void makeToast(String s);
+        void toggleLayoutVisibility();
 
     }
 

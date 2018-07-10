@@ -2,6 +2,7 @@ package lsteamer.elmexicano.com.docsearch.login;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -10,6 +11,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import java.util.Objects;
 
@@ -32,6 +35,10 @@ public class LoginView extends Fragment implements LoginContract.LoginViewContra
     TextInputLayout textInputUsername;
     @BindView(R.id.text_input_password)
     TextInputLayout textInputPassword;
+    @BindView(R.id.login_constraint_layout)
+    ConstraintLayout loginConstraintLayout;
+    @BindView(R.id.pb_loading_indicator)
+    ProgressBar progressBar;
 
     public LoginView(){
 
@@ -77,6 +84,20 @@ public class LoginView extends Fragment implements LoginContract.LoginViewContra
         textInputPassword.setError(s);
     }
 
+    public void makeToast(String toast){
+        Toast.makeText(getContext(), toast, Toast.LENGTH_LONG).show();
+    }
 
+    public void toggleLayoutVisibility(){
+        if(loginConstraintLayout.getVisibility()==View.VISIBLE){
+            loginConstraintLayout.setVisibility(View.INVISIBLE);
+            progressBar.setVisibility(View.VISIBLE);
+        }
+        else{
+            loginConstraintLayout.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.INVISIBLE);
+        }
+
+    }
 
 }

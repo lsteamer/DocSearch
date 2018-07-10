@@ -28,12 +28,13 @@ public class MainActivity extends AppCompatActivity {
             Utils.addFragmentToActivity(getSupportFragmentManager(), loginView, R.id.contentFrame);
         }
 
+        //Location Permissions
+        locationClient = LocationServices.getFusedLocationProviderClient(this);
+
         //PresenterLayer
         loginPresenter = new LoginPresenter(this, loginView, locationClient);
 
-        //Requesting the location Permissions
-        loginPresenter.requestLocationPermission();
-        locationClient = LocationServices.getFusedLocationProviderClient(this);
+
 
     }
 }

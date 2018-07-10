@@ -2,10 +2,12 @@ package lsteamer.elmexicano.com.docsearch.login;
 
 import android.app.Activity;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import lsteamer.elmexicano.com.docsearch.R;
 
@@ -19,6 +21,7 @@ public class LoginPresenter implements LoginContract.LoginPresenterContract{
     private FusedLocationProviderClient locationClient;
     private Activity loginActivity;
     private LoginContract.LoginViewContract mView;
+    private Location userLocation;
 
 
     LoginPresenter(Activity mActivity, LoginContract.LoginViewContract viewContract, FusedLocationProviderClient client){
@@ -26,16 +29,36 @@ public class LoginPresenter implements LoginContract.LoginPresenterContract{
         this.mView = viewContract;
         this.locationClient = client;
 
+        this.userLocation = null;
+        requestLocationPermission();
+        setLocation();
+
         mView.setPresenter(this);
     }
 
 
     @Override
     public void checkLoginConditions() {
-        if(requestLocationPermission()&&validateTextInput()){
+        if(ActivityCompat.checkSelfPermission(loginActivity, ACCESS_COARSE_LOCATION)== PackageManager.PERMISSION_GRANTED&&validateTextInput()){
+            setLocation();
+            mView.makeToast("longitude"+userLocation.getLongitude()+ " Latitude"+userLocation.getLatitude());
+            mView.toggleLayoutVisibility();
 
-            Log.d(TAG,"Check login conditions");
         }
+
+
+    }
+
+    private void setLocation(){
+        if(ActivityCompat.checkSelfPermission(loginActivity, ACCESS_COARSE_LOCATION)==PackageManager.PERMISSION_GRANTED)
+        locationClient.getLastLocation().addOnSuccessListener(loginActivity, new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                if(location != null){
+                    userLocation = location;
+                }
+            }
+        });
 
     }
 
