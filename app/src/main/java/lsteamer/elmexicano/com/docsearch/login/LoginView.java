@@ -7,7 +7,6 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,7 +64,7 @@ public class LoginView extends Fragment implements LoginContract.LoginViewContra
 
     @OnClick(R.id.button_login)
     void onClickLoginButton(){
-        mPresenter.checkLoginConditions();
+        mPresenter.loginToGetToken();
     }
 
     public String getTextInputUsername(){

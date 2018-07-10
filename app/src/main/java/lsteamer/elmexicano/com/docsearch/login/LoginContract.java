@@ -16,7 +16,7 @@ public interface LoginContract {
 
     interface LoginPresenterContract{
 
-        void checkLoginConditions();
+        void loginToGetToken();
         boolean requestLocationPermission();
 
     }

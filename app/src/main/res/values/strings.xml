@@ -1,9 +1,22 @@
 <resources>
     <string name="app_name">DocSearch</string>
-    <string name="username">Username</string>
-    <string name="default_email">rowanto@uvita.eu</string>
-    <string name="password">Password</string>
-    <string name="default_password">88888888</string>
     <string name="login">Login</string>
     <string name="empty_error">Field can\'t be empty</string>
+    <string name="usernameCapitalized">Username</string>
+    <string name="passwordCapitalized">Password</string>
+    <string name="base_url">https://api.uvita.eu/</string>
+    <string name="login_url">https://api.uvita.eu/oauth/</string>
+    <string name="doctor_url">https://api.uvita.eu/api/users/me/</string>
+    <string name="search">search</string>
+
+    <string name="username">username</string>
+    <string name="default_email">rowanto@uvita.eu</string>
+    <string name="password">password</string>
+    <string name="default_password">88888888</string>
+    <string name="grant_type">grant_type</string>
+    <string name="token">token</string>
+    <string name="doctors">doctors</string>
+    <string name="lat">lat</string>
+    <string name="lng">lng</string>
+
 </resources>

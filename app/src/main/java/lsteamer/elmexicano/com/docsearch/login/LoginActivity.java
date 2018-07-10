@@ -9,10 +9,9 @@ import com.google.android.gms.location.LocationServices;
 import lsteamer.elmexicano.com.docsearch.R;
 import lsteamer.elmexicano.com.docsearch.utils.Utils;
 
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     private FusedLocationProviderClient locationClient;
-
     private LoginView loginView;
     private LoginPresenter loginPresenter;
 
