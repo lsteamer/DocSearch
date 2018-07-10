@@ -3,10 +3,15 @@ package lsteamer.elmexicano.com.docsearch.login;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+
 import lsteamer.elmexicano.com.docsearch.R;
 import lsteamer.elmexicano.com.docsearch.utils.Utils;
 
 public class MainActivity extends AppCompatActivity {
+
+    private FusedLocationProviderClient locationClient;
 
     private LoginView loginView;
     private LoginPresenter loginPresenter;
@@ -23,7 +28,12 @@ public class MainActivity extends AppCompatActivity {
             Utils.addFragmentToActivity(getSupportFragmentManager(), loginView, R.id.contentFrame);
         }
 
-        loginPresenter = new LoginPresenter();
+        //PresenterLayer
+        loginPresenter = new LoginPresenter(this, loginView, locationClient);
+
+        //Requesting the location Permissions
+        loginPresenter.requestLocationPermission();
+        locationClient = LocationServices.getFusedLocationProviderClient(this);
 
     }
 }

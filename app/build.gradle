@@ -29,7 +29,11 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
+    //TextInputLayout dependency
     implementation 'com.android.support:design:27.1.1'
+
+    //location dependency
+    implementation 'com.google.android.gms:play-services-location:15.0.1'
 
     //ButterKnife
     implementation 'com.jakewharton:butterknife:8.8.1'
