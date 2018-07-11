@@ -4,21 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".login.LoginActivity">
+    tools:context=".list.ListActivity">
 
     <android.support.design.widget.CoordinatorLayout
-        android:id="@+id/loginCoordinatorLayout"
+        android:id="@+id/listCoordinatorLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <FrameLayout
-            android:id="@+id/loginContentFrame"
+            android:id="@+id/listContentFrame"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
         </FrameLayout>
 
     </android.support.design.widget.CoordinatorLayout>
-
 
 </android.support.constraint.ConstraintLayout>

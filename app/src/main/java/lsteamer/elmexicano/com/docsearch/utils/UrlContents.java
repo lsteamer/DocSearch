@@ -11,8 +11,10 @@ public class UrlContents {
      */
 
     private String baseUrl;
-    private String fullUrl;
-    private String path;
+    private String fullUrlLogin;
+    private String fullUrlList;
+    private String pathToken;
+    private String pathDoctors;
 
     private String latKey;
     private String latValue;
@@ -41,20 +43,36 @@ public class UrlContents {
         this.baseUrl = baseUrl;
     }
 
-    public @NonNull String getFullUrl() {
-        return fullUrl;
+    public @NonNull String getFullUrlLogin() {
+        return fullUrlLogin;
     }
 
-    public void setFullUrl(String fullUrl) {
-        this.fullUrl = fullUrl;
+    public void setFullUrlLogin(String fullUrlLogin) {
+        this.fullUrlLogin = fullUrlLogin;
     }
 
-    public @NonNull String getPath() {
-        return path;
+    public @NonNull String getFullUrlList() {
+        return fullUrlList;
     }
 
-    public void setPath(String path) {
-        this.path = path;
+    public void setFullUrlList(String fullUrlList) {
+        this.fullUrlList = fullUrlList;
+    }
+
+    public @NonNull String getPathToken() {
+        return pathToken;
+    }
+
+    public void setPathToken(String pathToken) {
+        this.pathToken = pathToken;
+    }
+
+    public @NonNull String getPathDoctors() {
+        return pathDoctors;
+    }
+
+    public void setPathDoctors(String pathDoctors) {
+        this.pathDoctors = pathDoctors;
     }
 
     public @NonNull String getLatKey() {

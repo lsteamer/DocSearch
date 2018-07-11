@@ -23,10 +23,10 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.login_activity);
 
         //ViewLayer
-        loginView = (LoginView) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
+        loginView = (LoginView) getSupportFragmentManager().findFragmentById(R.id.loginContentFrame);
         if(loginView==null){
             loginView = LoginView.newInstance();
-            Utils.addFragmentToActivity(getSupportFragmentManager(), loginView, R.id.contentFrame);
+            Utils.addFragmentToActivity(getSupportFragmentManager(), loginView, R.id.loginContentFrame);
         }
 
         urlContents = new UrlContents();
@@ -38,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
         urlContents = new UrlContents();
 
         //PresenterLayer
-        loginPresenter = new LoginPresenter(this, loginView, locationClient, urlContents);
+        loginPresenter = new LoginPresenter(this, loginView, locationClient);
 
 
 
