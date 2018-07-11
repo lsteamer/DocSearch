@@ -1,17 +1,17 @@
 package lsteamer.elmexicano.com.docsearch.utils;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
-import com.google.android.gms.common.util.Strings;
 
-import java.util.List;
+import java.text.DecimalFormat;
 
-import lsteamer.elmexicano.com.docsearch.R;
 import lsteamer.elmexicano.com.docsearch.list.model.DoctorData;
 import lsteamer.elmexicano.com.docsearch.list.model.DoctorRequestData;
 import lsteamer.elmexicano.com.docsearch.login.model.LoginRequestData;
@@ -33,58 +33,56 @@ public class Utils {
         transaction.commit();
     }
 
-    public static String urlParser(Activity activity, @NonNull String[] values){
-        return activity.getString(R.string.login_url)+
-                activity.getString(R.string.username)+ "=" +
-                values[0] + "&" +
-                activity.getString(R.string.password) + "=" +
-                values[1];
-    }
-
-    public static String uriParser(List<String> values){
+    public static String uriParser(UrlContents urlContents, int decider){
         Uri uri;
 
-        if(values.size()==5){
-            uri = Uri.parse(values.get(0)).buildUpon()
-                    .appendQueryParameter(values.get(1), values.get(2))
-                    .appendQueryParameter(values.get(3), values.get(4))
-                    .build();
+        switch (decider){
+            case 1:
+                //Access Token request
+                uri = Uri.parse(urlContents.getFullUrl()).buildUpon()
+                        .appendPath(urlContents.getPath())
+                        .appendQueryParameter(urlContents.getGrantTypeKey(),urlContents.getPasswordKey())
+                        .appendQueryParameter(urlContents.getUsernameKey(), urlContents.getUsernameValue())
+                        .appendQueryParameter(urlContents.getPasswordKey(), urlContents.getPasswordValue())
+                        .build();
+                return uri.toString();
+            case 2:
+                //Search for doctors with a name parameter
+                uri = Uri.parse(urlContents.getFullUrl()).buildUpon()
+                        .appendPath(urlContents.getPath())
+                        .appendQueryParameter(urlContents.getSearchKey(),urlContents.getSearchValue())
+                        .appendQueryParameter(urlContents.getLatKey(), urlContents.getLatValue())
+                        .appendQueryParameter(urlContents.getLngKey(), urlContents.getLngValue())
+                        .build();
+                return uri.toString();
+            case 3:
+                //Search for doctors with no Name parameter
+                uri = Uri.parse(urlContents.getFullUrl()).buildUpon()
+                        .appendPath(urlContents.getPath())
+                        .appendQueryParameter(urlContents.getLatKey(), urlContents.getLatValue())
+                        .appendQueryParameter(urlContents.getLngKey(), urlContents.getLngValue())
+                        .build();
+                return uri.toString();
+            default:
+                return "";
 
-            return uri.toString();
         }
-        return "";
     }
 
-
-    //todo check this one out
-    public static String uriParser(String[] values){
-        Uri uri;
-
-        if(values.length==8){
-            uri = Uri.parse(values[0]).buildUpon()
-                    .appendPath(values[1])
-                    .appendQueryParameter(values[2],values[3])
-                    .appendQueryParameter(values[4], values[5])
-                    .appendQueryParameter(values[6], values[7])
-                    .build();
-
-            return uri.toString();
-        }
-        else if(values.length==6){
-            uri = Uri.parse(values[0]).buildUpon()
-                    .appendPath(values[1])
-                    .appendQueryParameter(values[2],values[3])
-                    .appendQueryParameter(values[4], values[5])
-                    .build();
-
-            return uri.toString();
-
-        }
-        return "";
+    public static String getNumericStringTrimmedDecimals(double value){
+        DecimalFormat df = new DecimalFormat("#.######");
+        return df.format(value);
     }
+
+    /*
+     * The following are methods that are in place
+     * to keep the activities and MVP layers
+     * within dependency injection to make it
+     * easier to be Unit-tested
+     */
+
 
     public static Call<LoginData> getLoginRequestData(@NonNull String url, @NonNull String fullURL){
-
         Retrofit retrofit;
         retrofit = new Retrofit.Builder()
                 .baseUrl( url )
@@ -105,6 +103,15 @@ public class Utils {
 
         DoctorRequestData doctorRequestData = retrofit.create(DoctorRequestData.class);
         return doctorRequestData.getData(fullURL, token);
+    }
+
+    public static Intent getIntent(Activity activity, Class classToStart){
+        return new Intent(activity,classToStart);
+
+    }
+
+    public static Bundle getNewBundle(){
+        return new Bundle();
     }
 
 }

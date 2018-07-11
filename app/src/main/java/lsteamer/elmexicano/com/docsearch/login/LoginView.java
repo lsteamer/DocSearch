@@ -84,7 +84,7 @@ public class LoginView extends Fragment implements LoginContract.LoginViewContra
     }
 
     public void makeToast(String toast){
-        Toast.makeText(getContext(), toast, Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), toast, Toast.LENGTH_SHORT).show();
     }
 
     public void toggleLayoutVisibility(){

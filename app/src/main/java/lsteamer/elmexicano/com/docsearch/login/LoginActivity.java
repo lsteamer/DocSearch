@@ -7,6 +7,7 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 
 import lsteamer.elmexicano.com.docsearch.R;
+import lsteamer.elmexicano.com.docsearch.utils.UrlContents;
 import lsteamer.elmexicano.com.docsearch.utils.Utils;
 
 public class LoginActivity extends AppCompatActivity {
@@ -14,6 +15,7 @@ public class LoginActivity extends AppCompatActivity {
     private FusedLocationProviderClient locationClient;
     private LoginView loginView;
     private LoginPresenter loginPresenter;
+    private UrlContents urlContents;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,11 +29,16 @@ public class LoginActivity extends AppCompatActivity {
             Utils.addFragmentToActivity(getSupportFragmentManager(), loginView, R.id.contentFrame);
         }
 
+        urlContents = new UrlContents();
+
         //Location Permissions
         locationClient = LocationServices.getFusedLocationProviderClient(this);
 
+        //Help Utility Class
+        urlContents = new UrlContents();
+
         //PresenterLayer
-        loginPresenter = new LoginPresenter(this, loginView, locationClient);
+        loginPresenter = new LoginPresenter(this, loginView, locationClient, urlContents);
 
 
 
