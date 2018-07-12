@@ -4,18 +4,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import lsteamer.elmexicano.com.docsearch.R;
+import lsteamer.elmexicano.com.docsearch.utils.UrlContents;
 import lsteamer.elmexicano.com.docsearch.utils.Utils;
 
 public class ListActivity extends AppCompatActivity {
 
-    ListView listView;
-    ListPresenter listPresenter;
+    private ListView listView;
+    private ListPresenter listPresenter;
+    private UrlContents urlContents;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_activity);
 
+        urlContents = (UrlContents) getIntent().getSerializableExtra(getString(R.string.url_serializable_tag));
 
         //ViewLayer
         listView = (ListView) getSupportFragmentManager().findFragmentById(R.id.listContentFrame);
@@ -26,6 +29,6 @@ public class ListActivity extends AppCompatActivity {
 
 
         //PresenterLayer
-        listPresenter = new ListPresenter(this, listView);
+        listPresenter = new ListPresenter(this, listView, urlContents);
     }
 }

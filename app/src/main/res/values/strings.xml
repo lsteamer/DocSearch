@@ -9,6 +9,8 @@
     <string name="doctor_url">https://api.uvita.eu/api/users/me/</string>
     <string name="search">search</string>
 
+    <string name="url_serializable_tag">300261114</string>
+
     <string name="login_fail">Failure to login. Check your credentials or try again later</string>
     <string name="almost_there">Almost there</string>
     <string name="username">username</string>

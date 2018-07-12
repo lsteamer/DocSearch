@@ -32,7 +32,6 @@ class LoginPresenter implements LoginContract.LoginPresenterContract {
     private Activity loginActivity;
     private LoginContract.LoginViewContract mView;
     private UrlContents urlContents;
-    private boolean locationObtainedFlag;
 
 
     LoginPresenter(Activity mActivity, LoginContract.LoginViewContract viewContract, FusedLocationProviderClient client) {
@@ -40,12 +39,10 @@ class LoginPresenter implements LoginContract.LoginPresenterContract {
         this.mView = viewContract;
         this.locationClient = client;
 
-        this.locationObtainedFlag = false;
 
         this.urlContents = Utils.setUrlContentsStrings(loginActivity);
 
         requestLocationPermission();
-        setLocation();
 
 
         mView.setPresenter(this);
@@ -57,8 +54,8 @@ class LoginPresenter implements LoginContract.LoginPresenterContract {
     public void loginToGetToken() {
 
         //If we have locationPermission requests AND There's something in the Username/Password fields
-        if (locationObtainedFlag && requestLocationPermission() && validateTextInput()) {
-
+        if (requestLocationPermission() && validateTextInput()) {
+            setLocation();
             //Show a loading bar
             mView.toggleLayoutVisibility();
 
@@ -77,22 +74,8 @@ class LoginPresenter implements LoginContract.LoginPresenterContract {
                     if (response.body() != null) {
                         urlContents.setBearer("Bearer " + response.body().getAccessToken());
 
-
-                        mView.makeToast(loginActivity.getString(R.string.almost_there));
-
-
-                        //Call the new activity
-                        Intent listIntent = Utils.getIntent(loginActivity, ListActivity.class);
-
-
-                        //Sending the Array
-                        Bundle bundle = Utils.getNewBundle();
-                        listIntent.putExtras(bundle);
-
-                        //Ending this Activity
-                        loginActivity.finish();
-                        //Calling the next one
-                        loginActivity.startActivity(listIntent);
+                        //Start the new activity
+                        startListActivity();
 
                     } else
                         mView.makeToast(loginActivity.getString(R.string.login_fail));
@@ -110,6 +93,27 @@ class LoginPresenter implements LoginContract.LoginPresenterContract {
         }
     }
 
+    private void startListActivity() {
+
+        mView.makeToast(loginActivity.getString(R.string.almost_there));
+
+        //Call the new activity
+        Intent listIntent = Utils.getIntent(loginActivity, ListActivity.class);
+
+
+        //Sending the Array
+        Bundle bundle = Utils.getNewBundle();
+
+        bundle.putSerializable(loginActivity.getString(R.string.url_serializable_tag), urlContents);
+
+        listIntent.putExtras(bundle);
+
+        //Ending this Activity
+        loginActivity.finish();
+        //Calling the next one
+        loginActivity.startActivity(listIntent);
+
+    }
 
 
     public boolean requestLocationPermission() {
@@ -129,8 +133,6 @@ class LoginPresenter implements LoginContract.LoginPresenterContract {
                     if (location != null) {
                         urlContents.setLatValue(Utils.getNumericStringTrimmedDecimals(location.getLatitude()));
                         urlContents.setLngValue(Utils.getNumericStringTrimmedDecimals(location.getLongitude()));
-
-                        locationObtainedFlag = true;
 
                     }
                 }

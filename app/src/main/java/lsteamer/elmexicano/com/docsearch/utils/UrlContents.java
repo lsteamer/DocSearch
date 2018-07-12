@@ -2,8 +2,10 @@ package lsteamer.elmexicano.com.docsearch.utils;
 
 import android.support.annotation.NonNull;
 
+import java.io.Serializable;
 
-public class UrlContents {
+
+public class UrlContents implements Serializable {
 
     /*
      * UrlContents will contain the different strings
