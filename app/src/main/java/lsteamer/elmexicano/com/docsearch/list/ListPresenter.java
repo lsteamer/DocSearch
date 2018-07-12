@@ -2,11 +2,15 @@ package lsteamer.elmexicano.com.docsearch.list;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import java.util.ArrayList;
 
 import lsteamer.elmexicano.com.docsearch.R;
+import lsteamer.elmexicano.com.docsearch.list.RecylerViewAdapter.DoctorAdapter;
 import lsteamer.elmexicano.com.docsearch.list.model.Doctor;
 import lsteamer.elmexicano.com.docsearch.list.model.DoctorData;
 import lsteamer.elmexicano.com.docsearch.utils.UrlContents;
@@ -66,6 +70,15 @@ class ListPresenter implements ListContract.ListPresenterContract {
 
             }
         });
+    }
+
+    DoctorAdapter mAdapter;
+
+    public void setAdapter(){
+        RecyclerView doctorRecyclerView = listActivity.findViewById(R.id.recycler_view_doctors);
+        doctorRecyclerView.setLayoutManager(new LinearLayoutManager(listActivity.getApplicationContext()));
+
+        mAdapter = new DoctorAdapter((AppCompatActivity)listActivity, doctorList);
     }
 
     public boolean isDoctorListWithContents(){
