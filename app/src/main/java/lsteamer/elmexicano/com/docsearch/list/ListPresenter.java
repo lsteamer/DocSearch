@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import lsteamer.elmexicano.com.docsearch.R;
 import lsteamer.elmexicano.com.docsearch.list.RecylerViewAdapter.DoctorAdapter;
@@ -25,7 +26,7 @@ class ListPresenter implements ListContract.ListPresenterContract {
     private Activity listActivity;
     private ListContract.ListViewContract mView;
     private UrlContents urlContents;
-    private ArrayList<Doctor> doctorList;
+    private List<Doctor> doctorList;
 
     ListPresenter(Activity activity, ListContract.ListViewContract contract, UrlContents urlContents) {
         this.listActivity = activity;
@@ -47,15 +48,14 @@ class ListPresenter implements ListContract.ListPresenterContract {
         call.enqueue(new Callback<DoctorData>() {
             @Override
             public void onResponse(@NonNull Call<DoctorData> call, @NonNull Response<DoctorData> response) {
-                mView.toogleLayoutVisibility();
+
 
                 if (response.body() != null) {
-                    doctorList = (ArrayList) response.body().getListDoctors();
+                    doctorList = response.body().getListDoctors();
                     mView.makeToast(doctorList.get(0).getName());
 
 
-                    Log.d("SSS",doctorList.get(0).getPhotoId());
-                    Log.d("sss",urlContents.getBearer());
+                    setAdapter();
 
                 } else
                     mView.makeToast(listActivity.getString(R.string.login_fail));
@@ -75,10 +75,24 @@ class ListPresenter implements ListContract.ListPresenterContract {
     DoctorAdapter mAdapter;
 
     public void setAdapter(){
+
+
+
+        for(int i = 0; doctorList.size()>i; i++){
+            if(doctorList.get(i).getPhotoId()!=null)
+                Log.d("Somesomesomesome", doctorList.get(i).getPhotoId());
+        }
+        Log.d("Somesome",urlContents.getPathToken());
+        Log.d("Somesome",urlContents.getPathToken());
+        Log.d("Somesome",urlContents.getPathToken());
+
+        mView.toogleLayoutVisibility();
         RecyclerView doctorRecyclerView = listActivity.findViewById(R.id.recycler_view_doctors);
         doctorRecyclerView.setLayoutManager(new LinearLayoutManager(listActivity.getApplicationContext()));
 
         mAdapter = new DoctorAdapter((AppCompatActivity)listActivity, doctorList);
+
+        doctorRecyclerView.setAdapter(mAdapter);
     }
 
     public boolean isDoctorListWithContents(){

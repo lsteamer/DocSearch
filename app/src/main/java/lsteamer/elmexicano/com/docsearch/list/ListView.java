@@ -48,7 +48,6 @@ public class ListView extends Fragment implements ListContract.ListViewContract 
         if(!mPresenter.isDoctorListWithContents()){
             mPresenter.getDoctorAPIList();
             makeToast(getString(R.string.patience_from_zhou));
-
         }
         super.onActivityCreated(savedInstanceState);
     }

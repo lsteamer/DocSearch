@@ -7,25 +7,28 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import lsteamer.elmexicano.com.docsearch.R;
 import lsteamer.elmexicano.com.docsearch.list.model.Doctor;
 
 public class DoctorViewHolder extends RecyclerView.ViewHolder{
 
-    @BindView(R.id.doctor_image_view)
-    private ImageView doctorProfileImageInHolder;
+    //@BindView(R.id.doctor_image_view)
+    ImageView doctorProfileImageInHolder;
 
     @BindView(R.id.doctor_name_text_view)
-    private TextView doctorNameInHolder;
+    TextView doctorNameInHolder;
 
     @BindView(R.id.doctor_address_text_view)
-    private TextView doctorAddressInHolder;
+    TextView doctorAddressInHolder;
 
-    public DoctorViewHolder(View itemView) {
+
+    DoctorViewHolder(View itemView){
         super(itemView);
+        ButterKnife.bind(this, itemView);
     }
 
-    public void populate(Context context, Doctor doctor){
+    public void populate(Doctor doctor){
         doctorNameInHolder.setText(doctor.getName());
         doctorAddressInHolder.setText(doctor.getAddress());
 
