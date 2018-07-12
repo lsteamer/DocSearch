@@ -38,12 +38,9 @@ class LoginPresenter implements LoginContract.LoginPresenterContract {
         this.loginActivity = mActivity;
         this.mView = viewContract;
         this.locationClient = client;
-
-
         this.urlContents = Utils.setUrlContentsStrings(loginActivity);
 
         requestLocationPermission();
-
 
         mView.setPresenter(this);
 
@@ -63,6 +60,9 @@ class LoginPresenter implements LoginContract.LoginPresenterContract {
 
             Call<LoginData> call = Utils.getLoginRequestData(urlContents.getBaseUrl(), fullUrl);
 
+
+            //Toast to let the user know that we're working on it.
+            mView.makeToast(loginActivity.getString(R.string.almost_there));
 
             call.enqueue(new Callback<LoginData>() {
                 @Override
@@ -95,17 +95,12 @@ class LoginPresenter implements LoginContract.LoginPresenterContract {
 
     private void startListActivity() {
 
-        mView.makeToast(loginActivity.getString(R.string.almost_there));
-
         //Call the new activity
         Intent listIntent = Utils.getIntent(loginActivity, ListActivity.class);
 
-
         //Sending the Array
         Bundle bundle = Utils.getNewBundle();
-
         bundle.putSerializable(loginActivity.getString(R.string.url_serializable_tag), urlContents);
-
         listIntent.putExtras(bundle);
 
         //Ending this Activity

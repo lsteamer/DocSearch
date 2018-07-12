@@ -13,6 +13,7 @@
 
     <string name="login_fail">Failure to login. Check your credentials or try again later</string>
     <string name="almost_there">Almost there</string>
+    <string name="patience_from_zhou">Please be patient</string>
     <string name="username">username</string>
     <string name="default_email">rowanto@uvita.eu</string>
     <string name="password">password</string>
@@ -22,5 +23,7 @@
     <string name="doctors">doctors</string>
     <string name="lat">lat</string>
     <string name="lng">lng</string>
+    <string name="search_doctor_title">Search for a doctor</string>
+    <string name="doctor_image">Doctor Image</string>
 
 </resources>

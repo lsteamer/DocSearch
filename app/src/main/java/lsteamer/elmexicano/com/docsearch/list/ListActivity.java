@@ -2,6 +2,7 @@ package lsteamer.elmexicano.com.docsearch.list;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import lsteamer.elmexicano.com.docsearch.R;
 import lsteamer.elmexicano.com.docsearch.utils.UrlContents;

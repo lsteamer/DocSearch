@@ -45,8 +45,11 @@ public class ListView extends Fragment implements ListContract.ListViewContract 
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        //todo Call the API
-        makeToast("Almost there2");
+        if(!mPresenter.isDoctorListWithContents()){
+            mPresenter.getDoctorAPIList();
+            makeToast(getString(R.string.patience_from_zhou));
+
+        }
         super.onActivityCreated(savedInstanceState);
     }
 

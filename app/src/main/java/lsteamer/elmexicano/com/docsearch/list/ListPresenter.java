@@ -2,7 +2,12 @@ package lsteamer.elmexicano.com.docsearch.list;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
+import java.util.ArrayList;
+
+import lsteamer.elmexicano.com.docsearch.R;
+import lsteamer.elmexicano.com.docsearch.list.model.Doctor;
 import lsteamer.elmexicano.com.docsearch.list.model.DoctorData;
 import lsteamer.elmexicano.com.docsearch.utils.UrlContents;
 import lsteamer.elmexicano.com.docsearch.utils.Utils;
@@ -16,11 +21,14 @@ class ListPresenter implements ListContract.ListPresenterContract {
     private Activity listActivity;
     private ListContract.ListViewContract mView;
     private UrlContents urlContents;
+    private ArrayList<Doctor> doctorList;
 
     ListPresenter(Activity activity, ListContract.ListViewContract contract, UrlContents urlContents) {
         this.listActivity = activity;
         this.mView = contract;
         this.urlContents = urlContents;
+        doctorList = null;
+
         mView.setPresenter(this);
 
     }
@@ -28,8 +36,6 @@ class ListPresenter implements ListContract.ListPresenterContract {
 
     @Override
     public void getDoctorAPIList() {
-
-        //mView.toggleLayoutVisibility();
         String fullUrl = Utils.uriParser(urlContents, 3);
 
         Call<DoctorData> call = Utils.getDoctorRequestData(urlContents.getBaseUrl(), fullUrl, urlContents.getBearer());
@@ -37,14 +43,34 @@ class ListPresenter implements ListContract.ListPresenterContract {
         call.enqueue(new Callback<DoctorData>() {
             @Override
             public void onResponse(@NonNull Call<DoctorData> call, @NonNull Response<DoctorData> response) {
+                mView.toogleLayoutVisibility();
+
+                if (response.body() != null) {
+                    doctorList = (ArrayList) response.body().getListDoctors();
+                    mView.makeToast(doctorList.get(0).getName());
+
+
+                    Log.d("SSS",doctorList.get(0).getPhotoId());
+                    Log.d("sss",urlContents.getBearer());
+
+                } else
+                    mView.makeToast(listActivity.getString(R.string.login_fail));
+
 
             }
 
             @Override
             public void onFailure(@NonNull Call<DoctorData> call, @NonNull Throwable t) {
 
+                mView.makeToast(listActivity.getString(R.string.login_fail));
+
             }
         });
-
     }
+
+    public boolean isDoctorListWithContents(){
+        return doctorList!=null;
+    }
+
+
 }

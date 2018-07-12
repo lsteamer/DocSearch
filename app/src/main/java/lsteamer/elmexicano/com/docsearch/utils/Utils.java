@@ -49,7 +49,10 @@ public class Utils {
         //todo try to improve this
         urlContents.setBaseUrl(activity.getString(R.string.base_url));
         urlContents.setFullUrlLogin(activity.getString(R.string.login_url));
+        urlContents.setFullUrlList(activity.getString(R.string.doctor_url));
+
         urlContents.setPathToken(activity.getString(R.string.token));
+        urlContents.setPathDoctors(activity.getString(R.string.doctors));
         urlContents.setGrantTypeKey(activity.getString(R.string.grant_type));
         urlContents.setPasswordKey(activity.getString(R.string.password));
         urlContents.setUsernameKey(activity.getString(R.string.username));

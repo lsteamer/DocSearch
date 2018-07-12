@@ -13,5 +13,6 @@ public interface ListContract {
     interface ListPresenterContract{
 
         void getDoctorAPIList();
+        boolean isDoctorListWithContents();
     }
 }
