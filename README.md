@@ -10,22 +10,21 @@ Search for doctors around you.
 # Coder Notes
 The Challenge has two modules with MVP architecture.<br>
 
-<br>
 There's a List and a Login modules, each with their Activity, their Contract, View Layer and Presenter.
-The login is the landing activity.
-<img src="/screenshots/architecture1.png"/>
 <br>
-<br>
+<img src="/screenshots/architecture1.png"/><br>
 The List module contains a Recycler View that shows the list of results.
+<br><br>
+<img src="/screenshots/architecture2.png"/><br>
+The login is the landing activity.<br>
 There's two Utility classes, Utils provides methods and creates classes for the two modules and UrlContents assists in the creation of the different curl calls.
-<img src="/screenshots/architecture2.png"/>
-<br>
-This structure was adapted from the [Android Architecture Blueprints]
+<br><br><br>
+This structure was adapted from the [Android Architecture Blueprints]<br>
 (https://github.com/googlesamples/android-architecture/tree/todo-mvp) <br>
 
 # Dependencies
 From Google Dependencies it uses support:design and gms:play-services-location and <br>
-from third party dependencies it's uses ButterKnife, Retrofit & it's json-gson parser and Glide.<br>
+from third party dependencies it uses ButterKnife, Retrofit & it's json-gson parser and Glide.<br>
 <img src="/screenshots/dependencies.png"/>
 <br>
 <br>
