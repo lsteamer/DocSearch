@@ -10,11 +10,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
-
 import java.text.DecimalFormat;
 import java.util.List;
 
-import lsteamer.elmexicano.com.docsearch.R;
 import lsteamer.elmexicano.com.docsearch.list.recycler.DoctorAdapter;
 import lsteamer.elmexicano.com.docsearch.list.model.Doctor;
 import lsteamer.elmexicano.com.docsearch.list.model.DoctorData;
@@ -39,57 +37,30 @@ public class Utils {
     }
 
 
-    public static UrlContents setUrlContentsStrings(Activity activity) {
-
-        /*
-         * There's plenty room for improvement here.
-         * given time, I'll try to fix this a bit.
-         */
-
-        UrlContents urlContents = new UrlContents();
-
-        urlContents.setBaseUrl(activity.getString(R.string.base_url));
-        urlContents.setFullUrlLogin(activity.getString(R.string.login_url));
-        urlContents.setFullUrlList(activity.getString(R.string.doctor_url));
-        urlContents.setFullUrlImage(activity.getString(R.string.image_url));
-
-        urlContents.setPathToken(activity.getString(R.string.token));
-        urlContents.setPathDoctors(activity.getString(R.string.doctors));
-        urlContents.setGrantTypeKey(activity.getString(R.string.grant_type));
-        urlContents.setPasswordKey(activity.getString(R.string.password));
-        urlContents.setUsernameKey(activity.getString(R.string.username));
-        urlContents.setLngKey(activity.getString(R.string.lng));
-        urlContents.setLatKey(activity.getString(R.string.lat));
-        urlContents.setSearchKey(activity.getString(R.string.search));
-        urlContents.setAuthorization(activity.getString(R.string.authorization));
-
-        return urlContents;
-    }
-
-    public static String uriParser(UrlContents urlContents, int decider, String imageToken){
+    public static String uriParser(UrlContents urlContents, int decider, String imageToken) {
         Uri uri;
 
-        switch (decider){
+        switch (decider) {
             case 1:
-                //Access Token request
+                //Creating the url for the access Token request
                 uri = Uri.parse(urlContents.getFullUrlLogin()).buildUpon()
                         .appendPath(urlContents.getPathToken())
-                        .appendQueryParameter(urlContents.getGrantTypeKey(),urlContents.getPasswordKey())
+                        .appendQueryParameter(urlContents.getGrantTypeKey(), urlContents.getPasswordKey())
                         .appendQueryParameter(urlContents.getUsernameKey(), urlContents.getUsernameValue())
                         .appendQueryParameter(urlContents.getPasswordKey(), urlContents.getPasswordValue())
                         .build();
                 return uri.toString();
             case 2:
-                //Search for doctors with a name parameter
+                //creating the url for a search of doctors with a name parameter
                 uri = Uri.parse(urlContents.getFullUrlList()).buildUpon()
                         .appendPath(urlContents.getPathDoctors())
-                        .appendQueryParameter(urlContents.getSearchKey(),urlContents.getSearchValue())
+                        .appendQueryParameter(urlContents.getSearchKey(), urlContents.getSearchValue())
                         .appendQueryParameter(urlContents.getLatKey(), urlContents.getLatValue())
                         .appendQueryParameter(urlContents.getLngKey(), urlContents.getLngValue())
                         .build();
                 return uri.toString();
             case 3:
-                //Search for doctors with no Name parameter
+                //creating the url for a search of doctors with no Name parameter
                 uri = Uri.parse(urlContents.getFullUrlList()).buildUpon()
                         .appendPath(urlContents.getPathDoctors())
                         .appendQueryParameter(urlContents.getLatKey(), urlContents.getLatValue())
@@ -97,7 +68,7 @@ public class Utils {
                         .build();
                 return uri.toString();
             case 4:
-                //Search for doctors with no Name parameter
+                //creting the url for the search of images
                 uri = Uri.parse(urlContents.getFullUrlImage()).buildUpon()
                         .appendPath(imageToken)
                         .build();
@@ -108,7 +79,7 @@ public class Utils {
         }
     }
 
-    public static String getNumericStringTrimmedDecimals(double value){
+    public static String getNumericStringTrimmedDecimals(double value) {
         DecimalFormat df = new DecimalFormat("#.######");
         return df.format(value);
     }
@@ -119,15 +90,15 @@ public class Utils {
     /*
      * The following are methods that are in place
      * to keep the activities and MVP layers
-     * within dependency injection to make it
+     * within dependency injection to make them
      * easier to be Unit-tested
      */
 
 
-    public static Call<LoginData> getLoginRequestData(@NonNull String url, @NonNull String fullURL){
+    public static Call<LoginData> getLoginRequestData(@NonNull String url, @NonNull String fullURL) {
         Retrofit retrofit;
         retrofit = new Retrofit.Builder()
-                .baseUrl( url )
+                .baseUrl(url)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -135,11 +106,11 @@ public class Utils {
         return loginRequestData.getData(fullURL);
     }
 
-    public static Call<DoctorData> getDoctorRequestData(@NonNull String url, @NonNull String fullURL, @NonNull String token){
+    public static Call<DoctorData> getDoctorRequestData(@NonNull String url, @NonNull String fullURL, @NonNull String token) {
 
         Retrofit retrofit;
         retrofit = new Retrofit.Builder()
-                .baseUrl( url )
+                .baseUrl(url)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -147,17 +118,17 @@ public class Utils {
         return doctorRequestData.getData(fullURL, token);
     }
 
-    public static Intent getIntent(Activity activity, Class classToStart){
-        return new Intent(activity,classToStart);
+    public static Intent getIntent(Activity activity, Class classToStart) {
+        return new Intent(activity, classToStart);
 
     }
 
-    public static Bundle getNewBundle(){
+    public static Bundle getNewBundle() {
         return new Bundle();
     }
 
 
-    public static DoctorAdapter getDoctorAdapter(AppCompatActivity appActivity, List<Doctor> doctorList, UrlContents urlContents){
+    public static DoctorAdapter getDoctorAdapter(AppCompatActivity appActivity, List<Doctor> doctorList, UrlContents urlContents) {
         return new DoctorAdapter(appActivity, doctorList, urlContents);
     }
 

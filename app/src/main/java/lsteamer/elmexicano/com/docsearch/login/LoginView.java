@@ -37,7 +37,7 @@ public class LoginView extends Fragment implements LoginContract.LoginViewContra
     @BindView(R.id.pb_loading_indicator)
     ProgressBar progressBar;
 
-    public LoginView(){
+    public LoginView() {
 
     }
 
@@ -61,36 +61,35 @@ public class LoginView extends Fragment implements LoginContract.LoginViewContra
     }
 
     @OnClick(R.id.button_login)
-    void onClickLoginButton(){
+    void onClickLoginButton() {
         mPresenter.loginToGetToken();
     }
 
-    public String getTextInputUsername(){
+    public String getTextInputUsername() {
         return Objects.requireNonNull(textInputUsername.getEditText()).getText().toString().trim();
     }
 
-    public String getTextInputPassword(){
+    public String getTextInputPassword() {
         return Objects.requireNonNull(textInputPassword.getEditText()).getText().toString().trim();
     }
 
-    public void setUsernameErrorTitle(String s){
+    public void setUsernameErrorTitle(String s) {
         textInputUsername.setError(s);
     }
 
-    public void setPasswordErrorTitle(String s){
+    public void setPasswordErrorTitle(String s) {
         textInputPassword.setError(s);
     }
 
-    public void makeToast(String toast){
+    public void makeToast(String toast) {
         Toast.makeText(getContext(), toast, Toast.LENGTH_SHORT).show();
     }
 
-    public void toggleLayoutVisibility(){
-        if(loginConstraintLayout.getVisibility()==View.VISIBLE){
+    public void toggleLayoutVisibility() {
+        if (loginConstraintLayout.getVisibility() == View.VISIBLE) {
             loginConstraintLayout.setVisibility(View.INVISIBLE);
             progressBar.setVisibility(View.VISIBLE);
-        }
-        else{
+        } else {
             loginConstraintLayout.setVisibility(View.VISIBLE);
             progressBar.setVisibility(View.INVISIBLE);
         }

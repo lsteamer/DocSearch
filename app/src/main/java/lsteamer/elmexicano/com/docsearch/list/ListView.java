@@ -1,4 +1,5 @@
 package lsteamer.elmexicano.com.docsearch.list;
+
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -37,8 +38,7 @@ public class ListView extends Fragment implements ListContract.ListViewContract 
     @BindView(R.id.recycler_view_doctors)
     RecyclerView doctorRecyclerView;
 
-    public ListView(){
-
+    public ListView() {
     }
 
     public static ListView newInstance() {
@@ -57,7 +57,9 @@ public class ListView extends Fragment implements ListContract.ListViewContract 
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        if(!mPresenter.isDoctorListWithContents()){
+        //if there are contents in the list
+        if (!mPresenter.isDoctorListWithContents()) {
+
             mPresenter.getDoctorAPIList(3);
             doctorRecyclerView.setLayoutManager(mPresenter.getLinearLayoutManager());
             makeToast(getString(R.string.patience_from_zhou));
@@ -71,19 +73,19 @@ public class ListView extends Fragment implements ListContract.ListViewContract 
     }
 
     @OnEditorAction(R.id.search_doctor_bar)
-    public boolean searchDoctorAction(TextView v, int actionId, KeyEvent event){
-        if(actionId == EditorInfo.IME_ACTION_SEARCH){
+    public boolean searchDoctorAction(TextView v, int actionId, KeyEvent event) {
+        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
             mPresenter.searchDoctors(getTextInputSearch(v));
             return true;
         }
         return false;
     }
 
-    private String getTextInputSearch(TextView textView){
+    private String getTextInputSearch(TextView textView) {
         return Objects.requireNonNull(textView.getEditableText().toString());
     }
 
-    public void setDoctorAdapter(DoctorAdapter doctorAdapter){
+    public void setDoctorAdapter(DoctorAdapter doctorAdapter) {
         toggleLayoutVisibility();
         doctorRecyclerView.setAdapter(doctorAdapter);
 
@@ -96,11 +98,10 @@ public class ListView extends Fragment implements ListContract.ListViewContract 
 
     @Override
     public void toggleLayoutVisibility() {
-        if(listConstraintLayout.getVisibility()==View.VISIBLE){
+        if (listConstraintLayout.getVisibility() == View.VISIBLE) {
             listConstraintLayout.setVisibility(View.INVISIBLE);
             progressBar.setVisibility(View.VISIBLE);
-        }
-        else{
+        } else {
             listConstraintLayout.setVisibility(View.VISIBLE);
             progressBar.setVisibility(View.INVISIBLE);
         }

@@ -1,16 +1,19 @@
 package lsteamer.elmexicano.com.docsearch.utils;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 
 import java.io.Serializable;
 
+import lsteamer.elmexicano.com.docsearch.R;
 
+
+/**
+ * UrlContents is a helper class that contain the different strings
+ * that are needed to create the curl request calls.
+ */
 public class UrlContents implements Serializable {
 
-    /*
-     * UrlContents will contain the different strings
-     * that are needed to create the curl request calls
-     */
 
     private String baseUrl;
     private String fullUrlLogin;
@@ -40,7 +43,27 @@ public class UrlContents implements Serializable {
     private String authorization;
     private String bearer;
 
-    public @NonNull String getBaseUrl() {
+
+    public UrlContents(Context context) {
+        baseUrl = context.getString(R.string.base_url);
+        fullUrlLogin = context.getString(R.string.login_url);
+        fullUrlList = context.getString(R.string.doctor_url);
+        fullUrlImage = context.getString(R.string.image_url);
+
+        pathToken = context.getString(R.string.token);
+        pathDoctors = context.getString(R.string.doctors);
+        grantTypeKey = context.getString(R.string.grant_type);
+        passwordKey = context.getString(R.string.password);
+        usernameKey = context.getString(R.string.username);
+        lngKey = context.getString(R.string.lng);
+        latKey = context.getString(R.string.lat);
+        searchKey = context.getString(R.string.search);
+        authorization = context.getString(R.string.authorization);
+    }
+
+
+    public @NonNull
+    String getBaseUrl() {
         return baseUrl;
     }
 
@@ -48,7 +71,8 @@ public class UrlContents implements Serializable {
         this.baseUrl = baseUrl;
     }
 
-    public @NonNull String getFullUrlLogin() {
+    public @NonNull
+    String getFullUrlLogin() {
         return fullUrlLogin;
     }
 
@@ -56,7 +80,8 @@ public class UrlContents implements Serializable {
         this.fullUrlLogin = fullUrlLogin;
     }
 
-    public @NonNull String getFullUrlList() {
+    public @NonNull
+    String getFullUrlList() {
         return fullUrlList;
     }
 
@@ -72,7 +97,8 @@ public class UrlContents implements Serializable {
         this.fullUrlImage = fullUrlImage;
     }
 
-    public @NonNull String getPathToken() {
+    public @NonNull
+    String getPathToken() {
         return pathToken;
     }
 
@@ -80,7 +106,8 @@ public class UrlContents implements Serializable {
         this.pathToken = pathToken;
     }
 
-    public @NonNull String getPathDoctors() {
+    public @NonNull
+    String getPathDoctors() {
         return pathDoctors;
     }
 
@@ -88,7 +115,8 @@ public class UrlContents implements Serializable {
         this.pathDoctors = pathDoctors;
     }
 
-    public @NonNull String getLatKey() {
+    public @NonNull
+    String getLatKey() {
         return latKey;
     }
 
@@ -96,7 +124,8 @@ public class UrlContents implements Serializable {
         this.latKey = latKey;
     }
 
-    public @NonNull String getLatValue() {
+    public @NonNull
+    String getLatValue() {
         return latValue;
     }
 
@@ -104,7 +133,8 @@ public class UrlContents implements Serializable {
         this.latValue = latValue;
     }
 
-    public @NonNull String getLngKey() {
+    public @NonNull
+    String getLngKey() {
         return lngKey;
     }
 
@@ -112,7 +142,8 @@ public class UrlContents implements Serializable {
         this.lngKey = lngKey;
     }
 
-    public @NonNull String getLngValue() {
+    public @NonNull
+    String getLngValue() {
         return lngValue;
     }
 
@@ -120,7 +151,8 @@ public class UrlContents implements Serializable {
         this.lngValue = lngValue;
     }
 
-    public @NonNull String getUsernameKey() {
+    public @NonNull
+    String getUsernameKey() {
         return usernameKey;
     }
 
@@ -128,7 +160,8 @@ public class UrlContents implements Serializable {
         this.usernameKey = usernameKey;
     }
 
-    public @NonNull String getUsernameValue() {
+    public @NonNull
+    String getUsernameValue() {
         return usernameValue;
     }
 
@@ -136,7 +169,8 @@ public class UrlContents implements Serializable {
         this.usernameValue = usernameValue;
     }
 
-    public @NonNull String getPasswordKey() {
+    public @NonNull
+    String getPasswordKey() {
         return passwordKey;
     }
 
@@ -144,7 +178,8 @@ public class UrlContents implements Serializable {
         this.passwordKey = passwordKey;
     }
 
-    public @NonNull String getPasswordValue() {
+    public @NonNull
+    String getPasswordValue() {
         return passwordValue;
     }
 
@@ -152,7 +187,8 @@ public class UrlContents implements Serializable {
         this.passwordValue = passwordValue;
     }
 
-    public @NonNull String getGrantTypeKey() {
+    public @NonNull
+    String getGrantTypeKey() {
         return grantTypeKey;
     }
 
@@ -160,7 +196,8 @@ public class UrlContents implements Serializable {
         this.grantTypeKey = grantTypeKey;
     }
 
-    public @NonNull String getSearchKey() {
+    public @NonNull
+    String getSearchKey() {
         return searchKey;
     }
 
@@ -168,7 +205,8 @@ public class UrlContents implements Serializable {
         this.searchKey = searchKey;
     }
 
-    public @NonNull String getSearchValue() {
+    public @NonNull
+    String getSearchValue() {
         return searchValue;
     }
 
@@ -176,7 +214,8 @@ public class UrlContents implements Serializable {
         this.searchValue = searchValue;
     }
 
-    public @NonNull String getBearer() {
+    public @NonNull
+    String getBearer() {
         return bearer;
     }
 
@@ -184,7 +223,8 @@ public class UrlContents implements Serializable {
         this.bearer = bearer;
     }
 
-    public @NonNull String getAuthorization() {
+    public @NonNull
+    String getAuthorization() {
         return authorization;
     }
 

@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 
 import java.util.List;
 
@@ -28,21 +27,22 @@ class ListPresenter implements ListContract.ListPresenterContract {
     private DoctorAdapter docAdapter;
     private LinearLayoutManager linearLayoutManager;
 
-    ListPresenter(Activity listActivity, ListContract.ListViewContract contract, UrlContents urlContents, LinearLayoutManager linearLayoutManager) {
+    ListPresenter(Activity listActivity, ListContract.ListViewContract viewContract, UrlContents urlContents, LinearLayoutManager linearLayoutManager) {
         this.listActivity = listActivity;
-        this.mView = contract;
+        this.mView = viewContract;
         this.urlContents = urlContents;
         this.linearLayoutManager = linearLayoutManager;
         doctorList = null;
 
         mView.setPresenter(this);
-
     }
 
 
     @Override
     public void getDoctorAPIList(int decider) {
-        String fullUrl = Utils.uriParser(urlContents, decider,null);
+
+
+        String fullUrl = Utils.uriParser(urlContents, decider, null);
 
         Call<DoctorData> call = Utils.getDoctorRequestData(urlContents.getBaseUrl(), fullUrl, urlContents.getBearer());
 
@@ -51,71 +51,53 @@ class ListPresenter implements ListContract.ListPresenterContract {
             public void onResponse(@NonNull Call<DoctorData> call, @NonNull Response<DoctorData> response) {
 
                 if (response.body() != null) {
+                    /*
+                     * If we have a response that's not null, we
+                     * get the Doctor List, we set the complete url for the
+                     * images when applicable, and we get a new adapter with it
+                     * we then call the View Layer to set the Adapter
+                     */
                     doctorList = response.body().getListDoctors();
                     getDoctorImagesUrl();
 
-                    docAdapter = Utils.getDoctorAdapter((AppCompatActivity)listActivity, doctorList, urlContents);
+                    docAdapter = Utils.getDoctorAdapter((AppCompatActivity) listActivity, doctorList, urlContents);
 
                     mView.setDoctorAdapter(docAdapter);
-
                 } else
                     mView.makeToast(listActivity.getString(R.string.login_fail));
             }
 
             @Override
             public void onFailure(@NonNull Call<DoctorData> call, @NonNull Throwable t) {
-
                 mView.makeToast(listActivity.getString(R.string.login_fail));
             }
         });
     }
 
-    private void getDoctorImagesUrl(){
-        for(int i = 0; i<doctorList.size(); i++){
-
-
-            Log.d("Name", "Someneme " + doctorList.get(i).getName());
-            Log.d("address", "Someneme " + doctorList.get(i).getAddress());
-            Log.d("Doctor's Photo", "Whateva " + doctorList.get(i).getPhotoId());
-
-            doctorList.get(i).setPhotoIdStatus(false);
-            if(doctorList.get(i).getPhotoId()!=null){
-
-                Log.d("Doctor's Photo", "TRUE" + doctorList.get(i).getPhotoId());
-                doctorList.get(i).setPhotoIdStatus(true);
+    /*
+     *  This method goes through the List<Doctor> and
+     *  sets the full url (from the curl command) when it exists
+     */
+    private void getDoctorImagesUrl() {
+        for (int i = 0; i < doctorList.size(); i++) {
+            if (doctorList.get(i).getPhotoId() != null) {
                 String fullImageUrl = Utils.uriParser(urlContents, 4, doctorList.get(i).getPhotoId());
                 doctorList.get(i).setPhotoIdUrl(fullImageUrl);
             }
-            Log.d("Doctor's Photo Status", "Whateva " + doctorList.get(i).isPhotoIdStatus());
         }
-
     }
 
-    public void getApictureUrl(){
-        for(int i = 0; i<doctorList.size(); i++){
-            String wat = "";
-            if(doctorList.get(i).getPhotoId()!=null){
-                wat = doctorList.get(i).getPhotoId();
-            }
-            Log.d("watWAt"," only one wat "+ wat);
-            Log.d("watWAt"," whatyasay?" + doctorList.get(i).isPhotoIdStatus());
 
-        }
-        //Log.d("watWAt"," only one  "+ urlContents.getBearer());
-
-    }
-
-    public void searchDoctors(String doctorSearch){
-        if(!doctorSearch.isEmpty()){
+    public void searchDoctors(String doctorSearch) {
+        if (!doctorSearch.isEmpty()) {
             mView.toggleLayoutVisibility();
             urlContents.setSearchValue(doctorSearch);
             getDoctorAPIList(2);
         }
-
     }
 
-    public boolean isDoctorListWithContents(){
-        return doctorList!=null;
+    public boolean isDoctorListWithContents() {
+        return doctorList != null;
     }
 
     public LinearLayoutManager getLinearLayoutManager() {

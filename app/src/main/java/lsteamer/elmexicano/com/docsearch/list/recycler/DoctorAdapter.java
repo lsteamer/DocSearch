@@ -3,12 +3,9 @@ package lsteamer.elmexicano.com.docsearch.list.recycler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.model.GlideUrl;
@@ -20,7 +17,7 @@ import lsteamer.elmexicano.com.docsearch.R;
 import lsteamer.elmexicano.com.docsearch.list.model.Doctor;
 import lsteamer.elmexicano.com.docsearch.utils.UrlContents;
 
-public class DoctorAdapter extends RecyclerView.Adapter<DoctorViewHolder>{
+public class DoctorAdapter extends RecyclerView.Adapter<DoctorViewHolder> {
 
 
     private AppCompatActivity mActivity;
@@ -46,24 +43,16 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorViewHolder>{
     public void onBindViewHolder(@NonNull DoctorViewHolder holder, int position) {
         final Doctor doctor = doctorList.get(position);
 
-        TextView name = holder.getDoctorNameInHolder();
-        TextView address = holder.getDoctorAddressInHolder();
-        ImageView some = holder.getDoctorProfileImageInHolder();
 
-        if(doctor.getPhotoId()!=null&& doctor.isPhotoIdStatus()){
+        holder.populate(doctor);
 
 
+        if (doctor.getPhotoId() != null) {
+            //if there's an image we dynamically get the images through Glide
             GlideUrl glideUrl = new GlideUrl(doctor.getPhotoIdUrl(), new LazyHeaders.Builder().addHeader(urlContents.getAuthorization(), urlContents.getBearer()).build());
-            Glide.with(mActivity).load(glideUrl).into(some);
-            name.setText(doctor.getName());
-            address.setText(doctor.getAddress());
-
-        }
-        else{
-            some.setImageResource(R.drawable.doctor_profile_default);
-            name.setText(doctor.getName());
-            address.setText(doctor.getAddress());
-        }
+            Glide.with(mActivity).load(glideUrl).into(holder.getDoctorProfileImageInHolder());
+        } else
+            holder.getDoctorProfileImageInHolder().setImageResource(R.drawable.doctor_profile_default);
     }
 
 

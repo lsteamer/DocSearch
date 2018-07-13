@@ -24,23 +24,20 @@ public class LoginActivity extends AppCompatActivity {
 
         //ViewLayer
         loginView = (LoginView) getSupportFragmentManager().findFragmentById(R.id.loginContentFrame);
-        if(loginView==null){
+        if (loginView == null) {
             loginView = LoginView.newInstance();
             Utils.addFragmentToActivity(getSupportFragmentManager(), loginView, R.id.loginContentFrame);
         }
-
-        urlContents = new UrlContents();
 
         //Location Permissions
         locationClient = LocationServices.getFusedLocationProviderClient(this);
 
         //Help Utility Class
-        urlContents = new UrlContents();
+        urlContents = new UrlContents(this);
+
 
         //PresenterLayer
-        loginPresenter = new LoginPresenter(this, loginView, locationClient);
-
-
+        loginPresenter = new LoginPresenter(this, loginView, locationClient, urlContents);
 
     }
 }

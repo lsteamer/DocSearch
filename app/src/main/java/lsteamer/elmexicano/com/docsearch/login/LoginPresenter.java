@@ -31,14 +31,13 @@ class LoginPresenter implements LoginContract.LoginPresenterContract {
     private UrlContents urlContents;
 
 
-    LoginPresenter(Activity mActivity, LoginContract.LoginViewContract viewContract, FusedLocationProviderClient client) {
+    LoginPresenter(Activity mActivity, LoginContract.LoginViewContract viewContract, FusedLocationProviderClient client, UrlContents urlContents) {
         this.loginActivity = mActivity;
         this.mView = viewContract;
         this.locationClient = client;
-        this.urlContents = Utils.setUrlContentsStrings(loginActivity);
+        this.urlContents = urlContents;
 
         requestLocationPermission();
-
         mView.setPresenter(this);
 
     }
@@ -54,29 +53,26 @@ class LoginPresenter implements LoginContract.LoginPresenterContract {
             //Show a loading bar
             mView.toggleLayoutVisibility();
 
-            String fullUrl = Utils.uriParser(urlContents, 1,null);
+            String fullUrl = Utils.uriParser(urlContents, 1, null);
 
             Call<LoginData> call = Utils.getLoginRequestData(urlContents.getBaseUrl(), fullUrl);
 
             //Toast to let the user know that we're working on it.
-            mView.makeToast(loginActivity.getString(R.string.almost_there));
+            mView.makeToast(loginActivity.getString(R.string.doing_that));
 
             call.enqueue(new Callback<LoginData>() {
                 @Override
                 public void onResponse(@NonNull Call<LoginData> call, @NonNull Response<LoginData> response) {
 
-
                     mView.toggleLayoutVisibility();
 
                     if (response.body() != null) {
-                        urlContents.setBearer("Bearer " + response.body().getAccessToken());
+                        urlContents.setBearer(loginActivity.getString(R.string.bearer) + response.body().getAccessToken());
 
                         //Start the new activity
                         startListActivity();
-
                     } else
                         mView.makeToast(loginActivity.getString(R.string.login_fail));
-
                 }
 
                 @Override
@@ -85,13 +81,10 @@ class LoginPresenter implements LoginContract.LoginPresenterContract {
                     mView.makeToast(loginActivity.getString(R.string.login_fail));
                 }
             });
-
-
         }
     }
 
     private void startListActivity() {
-
         Intent listIntent = Utils.getIntent(loginActivity, ListActivity.class);
 
         //Sending the urlContents-helper class
@@ -127,7 +120,6 @@ class LoginPresenter implements LoginContract.LoginPresenterContract {
                     }
                 }
             });
-
     }
 
 
@@ -155,5 +147,4 @@ class LoginPresenter implements LoginContract.LoginPresenterContract {
             return false;
         }
     }
-
 }

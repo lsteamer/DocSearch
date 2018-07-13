@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
 
     <ProgressBar
@@ -36,6 +37,8 @@
             <android.support.design.widget.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                tools:text="Some Doe"
+                tools:hint="Username"
                 android:hint="@string/username"
                 android:text="@string/default_email" />
         </android.support.design.widget.TextInputLayout>
@@ -54,6 +57,8 @@
             <android.support.design.widget.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                tools:text="************"
+                tools:hint="Password"
                 android:hint="@string/password"
                 android:inputType="textPassword"
                 android:text="@string/default_password" />
@@ -66,6 +71,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginTop="8dp"
             android:text="@string/login"
+            tools:text="Login"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_input_password" />
     </android.support.constraint.ConstraintLayout>

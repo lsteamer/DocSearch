@@ -24,7 +24,6 @@ public class DoctorData {
         this.listDoctors = listDoctors;
     }
 
-
     public String getLastKey() {
         return lastKey;
     }
