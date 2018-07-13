@@ -34,6 +34,7 @@
             android:drawableStart="@drawable/ic_search_bar_drawable"
             android:hint="@string/search_doctor_title"
             android:inputType="text"
+            android:imeOptions="actionSearch"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

@@ -6,14 +6,21 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnEditorAction;
 import lsteamer.elmexicano.com.docsearch.R;
 import lsteamer.elmexicano.com.docsearch.list.RecylerViewAdapter.DoctorAdapter;
 
@@ -26,6 +33,8 @@ public class ListView extends Fragment implements ListContract.ListViewContract 
     ConstraintLayout listConstraintLayout;
     @BindView(R.id.list_loading_indicator)
     ProgressBar progressBar;
+    @BindView(R.id.search_doctor_bar)
+    EditText editText;
     @BindView(R.id.recycler_view_doctors)
     RecyclerView doctorRecyclerView;
 
@@ -61,6 +70,19 @@ public class ListView extends Fragment implements ListContract.ListViewContract 
     @Override
     public void setPresenter(ListContract.ListPresenterContract listPresenterContract) {
         this.mPresenter = listPresenterContract;
+    }
+
+    @OnEditorAction(R.id.search_doctor_bar)
+    public boolean searchDoctorAction(TextView v, int actionId, KeyEvent event){
+        if(actionId == EditorInfo.IME_ACTION_SEARCH){
+            mPresenter.searchDoctors(getTextInputSearch(v));
+            return true;
+        }
+        return false;
+    }
+
+    private String getTextInputSearch(TextView textView){
+        return Objects.requireNonNull(textView.getEditableText().toString());
     }
 
     public void setDoctorAdapter(DoctorAdapter doctorAdapter){

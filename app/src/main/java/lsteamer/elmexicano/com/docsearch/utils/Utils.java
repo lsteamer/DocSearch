@@ -31,7 +31,6 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.support.v4.util.Preconditions.checkNotNull;
 
 public class Utils {
@@ -48,9 +47,13 @@ public class Utils {
 
     public static UrlContents setUrlContentsStrings(Activity activity) {
 
+        /*
+         * There's plenty room for improvement here.
+         * given time, I'll try to fix this a bit.
+         */
+
         UrlContents urlContents = new UrlContents();
 
-        //todo try to improve this
         urlContents.setBaseUrl(activity.getString(R.string.base_url));
         urlContents.setFullUrlLogin(activity.getString(R.string.login_url));
         urlContents.setFullUrlList(activity.getString(R.string.doctor_url));
@@ -62,6 +65,7 @@ public class Utils {
         urlContents.setUsernameKey(activity.getString(R.string.username));
         urlContents.setLngKey(activity.getString(R.string.lng));
         urlContents.setLatKey(activity.getString(R.string.lat));
+        urlContents.setSearchKey(activity.getString(R.string.search));
 
         return urlContents;
     }

@@ -46,6 +46,8 @@ class ListPresenter implements ListContract.ListPresenterContract {
     public void getDoctorAPIList(int decider) {
         String fullUrl = Utils.uriParser(urlContents, decider);
 
+        Log.d("DOCTORS DUDE", fullUrl);
+
         Call<DoctorData> call = Utils.getDoctorRequestData(urlContents.getBaseUrl(), fullUrl, urlContents.getBearer());
 
         call.enqueue(new Callback<DoctorData>() {
@@ -71,6 +73,14 @@ class ListPresenter implements ListContract.ListPresenterContract {
         });
     }
 
+    public void searchDoctors(String doctorSearch){
+        if(!doctorSearch.isEmpty()){
+            mView.toggleLayoutVisibility();
+            urlContents.setSearchValue(doctorSearch);
+            getDoctorAPIList(2);
+        }
+
+    }
 
     public boolean isDoctorListWithContents(){
         return doctorList!=null;

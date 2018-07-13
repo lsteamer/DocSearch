@@ -20,5 +20,6 @@ public interface ListContract {
         void getDoctorAPIList(int decider);
         boolean isDoctorListWithContents();
         LinearLayoutManager getLinearLayoutManager();
+        void searchDoctors(String doctor);
     }
 }
