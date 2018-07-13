@@ -37,7 +37,14 @@ public class Utils {
     }
 
 
-    public static String uriParser(UrlContents urlContents, int decider, String imageToken) {
+    /**
+     * Method to create the different urls needed in the project.
+     * @param urlContents Helper class with the different Strings needed
+     * @param decider int that selects which kind of url is needed
+     * @param imageToken Can be null, has the path for the image url.
+     * @return
+     */
+    public static String uriParser(@NonNull UrlContents urlContents, @NonNull int decider, String imageToken) {
         Uri uri;
 
         switch (decider) {
