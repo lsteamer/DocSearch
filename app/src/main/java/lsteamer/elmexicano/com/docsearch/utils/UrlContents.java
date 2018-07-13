@@ -15,6 +15,8 @@ public class UrlContents implements Serializable {
     private String baseUrl;
     private String fullUrlLogin;
     private String fullUrlList;
+    private String fullUrlImage;
+
     private String pathToken;
     private String pathDoctors;
 
@@ -35,6 +37,7 @@ public class UrlContents implements Serializable {
     private String searchKey;
     private String searchValue;
 
+    private String authorization;
     private String bearer;
 
     public @NonNull String getBaseUrl() {
@@ -59,6 +62,14 @@ public class UrlContents implements Serializable {
 
     public void setFullUrlList(String fullUrlList) {
         this.fullUrlList = fullUrlList;
+    }
+
+    public String getFullUrlImage() {
+        return fullUrlImage;
+    }
+
+    public void setFullUrlImage(String fullUrlImage) {
+        this.fullUrlImage = fullUrlImage;
     }
 
     public @NonNull String getPathToken() {
@@ -171,5 +182,13 @@ public class UrlContents implements Serializable {
 
     public void setBearer(String bearer) {
         this.bearer = bearer;
+    }
+
+    public @NonNull String getAuthorization() {
+        return authorization;
+    }
+
+    public void setAuthorization(String authorization) {
+        this.authorization = authorization;
     }
 }

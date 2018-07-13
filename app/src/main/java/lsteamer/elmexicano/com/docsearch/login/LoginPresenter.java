@@ -54,7 +54,7 @@ class LoginPresenter implements LoginContract.LoginPresenterContract {
             //Show a loading bar
             mView.toggleLayoutVisibility();
 
-            String fullUrl = Utils.uriParser(urlContents, 1);
+            String fullUrl = Utils.uriParser(urlContents, 1,null);
 
             Call<LoginData> call = Utils.getLoginRequestData(urlContents.getBaseUrl(), fullUrl);
 

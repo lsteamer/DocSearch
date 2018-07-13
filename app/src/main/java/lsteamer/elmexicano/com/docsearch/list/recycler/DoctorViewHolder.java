@@ -12,7 +12,7 @@ import lsteamer.elmexicano.com.docsearch.list.model.Doctor;
 
 public class DoctorViewHolder extends RecyclerView.ViewHolder{
 
-    //@BindView(R.id.doctor_image_view)
+    @BindView(R.id.doctor_image_view)
     ImageView doctorProfileImageInHolder;
 
     @BindView(R.id.doctor_name_text_view)
@@ -30,7 +30,10 @@ public class DoctorViewHolder extends RecyclerView.ViewHolder{
     public void populate(Doctor doctor){
         doctorNameInHolder.setText(doctor.getName());
         doctorAddressInHolder.setText(doctor.getAddress());
-
     }
 
+
+    public ImageView getDoctorProfileImageInHolder(){
+        return this.doctorProfileImageInHolder;
+    }
 }

@@ -19,6 +19,10 @@ public class Doctor {
     @Expose
     private String photoId;
 
+    private String photoIdUrl;
+
+    private boolean photoIdStatus;
+
     @SerializedName("rating")
     @Expose
     private String rating;
@@ -42,12 +46,6 @@ public class Doctor {
     @SerializedName("reviewCount")
     @Expose
     private String reviewCount;
-/*
-
-    @SerializedName("specialityIds")
-    @Expose
-    private String specialityIds;
-*/
 
     @SerializedName("source")
     @Expose
@@ -64,12 +62,6 @@ public class Doctor {
     @SerializedName("website")
     @Expose
     private String website;
-/*
-
-    @SerializedName("openingHours")
-    @Expose
-    private String openingHours;
-*/
 
     public String getId() {
         return id;
@@ -93,6 +85,22 @@ public class Doctor {
 
     public void setPhotoId(String photoId) {
         this.photoId = photoId;
+    }
+
+    public boolean isPhotoIdStatus() {
+        return photoIdStatus;
+    }
+
+    public void setPhotoIdStatus(boolean photoIdStatus) {
+        this.photoIdStatus = photoIdStatus;
+    }
+
+    public String getPhotoIdUrl() {
+        return photoIdUrl;
+    }
+
+    public void setPhotoIdUrl(String photoIdUrl) {
+        this.photoIdUrl = photoIdUrl;
     }
 
     public String getRating() {

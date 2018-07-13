@@ -51,6 +51,7 @@ public class Utils {
         urlContents.setBaseUrl(activity.getString(R.string.base_url));
         urlContents.setFullUrlLogin(activity.getString(R.string.login_url));
         urlContents.setFullUrlList(activity.getString(R.string.doctor_url));
+        urlContents.setFullUrlImage(activity.getString(R.string.image_url));
 
         urlContents.setPathToken(activity.getString(R.string.token));
         urlContents.setPathDoctors(activity.getString(R.string.doctors));
@@ -60,11 +61,12 @@ public class Utils {
         urlContents.setLngKey(activity.getString(R.string.lng));
         urlContents.setLatKey(activity.getString(R.string.lat));
         urlContents.setSearchKey(activity.getString(R.string.search));
+        urlContents.setAuthorization(activity.getString(R.string.authorization));
 
         return urlContents;
     }
 
-    public static String uriParser(UrlContents urlContents, int decider){
+    public static String uriParser(UrlContents urlContents, int decider, String imageToken){
         Uri uri;
 
         switch (decider){
@@ -92,6 +94,12 @@ public class Utils {
                         .appendPath(urlContents.getPathDoctors())
                         .appendQueryParameter(urlContents.getLatKey(), urlContents.getLatValue())
                         .appendQueryParameter(urlContents.getLngKey(), urlContents.getLngValue())
+                        .build();
+                return uri.toString();
+            case 4:
+                //Search for doctors with no Name parameter
+                uri = Uri.parse(urlContents.getFullUrlImage()).buildUpon()
+                        .appendPath(imageToken)
                         .build();
                 return uri.toString();
             default:
@@ -149,8 +157,8 @@ public class Utils {
     }
 
 
-    public static DoctorAdapter getDoctorAdapter(AppCompatActivity appActivity, List<Doctor> doctorList){
-        return new DoctorAdapter(appActivity, doctorList);
+    public static DoctorAdapter getDoctorAdapter(AppCompatActivity appActivity, List<Doctor> doctorList, UrlContents urlContents){
+        return new DoctorAdapter(appActivity, doctorList, urlContents);
     }
 
 }
