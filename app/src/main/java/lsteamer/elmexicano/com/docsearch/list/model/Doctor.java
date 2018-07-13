@@ -21,7 +21,7 @@ public class Doctor {
 
     private String photoIdUrl;
 
-    private boolean photoIdStatus;
+    private boolean photoIdStatus=false;
 
     @SerializedName("rating")
     @Expose

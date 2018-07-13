@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.model.GlideUrl;
@@ -45,16 +46,24 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorViewHolder>{
     public void onBindViewHolder(@NonNull DoctorViewHolder holder, int position) {
         final Doctor doctor = doctorList.get(position);
 
-        if(doctor.isPhotoIdStatus()){
+        TextView name = holder.getDoctorNameInHolder();
+        TextView address = holder.getDoctorAddressInHolder();
+        ImageView some = holder.getDoctorProfileImageInHolder();
 
-            ImageView some = holder.getDoctorProfileImageInHolder();
+        if(doctor.getPhotoId()!=null&& doctor.isPhotoIdStatus()){
 
 
             GlideUrl glideUrl = new GlideUrl(doctor.getPhotoIdUrl(), new LazyHeaders.Builder().addHeader(urlContents.getAuthorization(), urlContents.getBearer()).build());
-            Glide.with(mActivity).load(glideUrl).into(holder.getDoctorProfileImageInHolder());
+            Glide.with(mActivity).load(glideUrl).into(some);
+            name.setText(doctor.getName());
+            address.setText(doctor.getAddress());
 
         }
-        holder.populate(doctor);
+        else{
+            some.setImageResource(R.drawable.doctor_profile_default);
+            name.setText(doctor.getName());
+            address.setText(doctor.getAddress());
+        }
     }
 
 

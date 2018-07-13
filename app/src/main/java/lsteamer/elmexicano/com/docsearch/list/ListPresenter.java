@@ -73,9 +73,10 @@ class ListPresenter implements ListContract.ListPresenterContract {
     private void getDoctorImagesUrl(){
         for(int i = 0; i<doctorList.size(); i++){
 
+
             Log.d("Name", "Someneme " + doctorList.get(i).getName());
             Log.d("address", "Someneme " + doctorList.get(i).getAddress());
-            Log.d("Doctor's Photo", "Whateva" + doctorList.get(i).getPhotoId());
+            Log.d("Doctor's Photo", "Whateva " + doctorList.get(i).getPhotoId());
 
             doctorList.get(i).setPhotoIdStatus(false);
             if(doctorList.get(i).getPhotoId()!=null){
@@ -85,6 +86,7 @@ class ListPresenter implements ListContract.ListPresenterContract {
                 String fullImageUrl = Utils.uriParser(urlContents, 4, doctorList.get(i).getPhotoId());
                 doctorList.get(i).setPhotoIdUrl(fullImageUrl);
             }
+            Log.d("Doctor's Photo Status", "Whateva " + doctorList.get(i).isPhotoIdStatus());
         }
 
     }
