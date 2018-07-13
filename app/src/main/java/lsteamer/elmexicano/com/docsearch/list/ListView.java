@@ -4,6 +4,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import lsteamer.elmexicano.com.docsearch.R;
+import lsteamer.elmexicano.com.docsearch.list.RecylerViewAdapter.DoctorAdapter;
 
 public class ListView extends Fragment implements ListContract.ListViewContract {
 
@@ -23,6 +26,8 @@ public class ListView extends Fragment implements ListContract.ListViewContract 
     ConstraintLayout listConstraintLayout;
     @BindView(R.id.list_loading_indicator)
     ProgressBar progressBar;
+    @BindView(R.id.recycler_view_doctors)
+    RecyclerView doctorRecyclerView;
 
     public ListView(){
 
@@ -46,7 +51,8 @@ public class ListView extends Fragment implements ListContract.ListViewContract 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         if(!mPresenter.isDoctorListWithContents()){
-            mPresenter.getDoctorAPIList();
+            mPresenter.getDoctorAPIList(3);
+            doctorRecyclerView.setLayoutManager(mPresenter.getLinearLayoutManager());
             makeToast(getString(R.string.patience_from_zhou));
         }
         super.onActivityCreated(savedInstanceState);
@@ -57,13 +63,19 @@ public class ListView extends Fragment implements ListContract.ListViewContract 
         this.mPresenter = listPresenterContract;
     }
 
+    public void setDoctorAdapter(DoctorAdapter doctorAdapter){
+        toggleLayoutVisibility();
+        doctorRecyclerView.setAdapter(doctorAdapter);
+
+    }
+
     @Override
     public void makeToast(String toast) {
         Toast.makeText(getContext(), toast, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void toogleLayoutVisibility() {
+    public void toggleLayoutVisibility() {
         if(listConstraintLayout.getVisibility()==View.VISIBLE){
             listConstraintLayout.setVisibility(View.INVISIBLE);
             progressBar.setVisibility(View.VISIBLE);

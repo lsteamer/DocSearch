@@ -27,11 +27,14 @@ class ListPresenter implements ListContract.ListPresenterContract {
     private ListContract.ListViewContract mView;
     private UrlContents urlContents;
     private List<Doctor> doctorList;
+    private DoctorAdapter docAdapter;
+    private LinearLayoutManager linearLayoutManager;
 
-    ListPresenter(Activity activity, ListContract.ListViewContract contract, UrlContents urlContents) {
-        this.listActivity = activity;
+    ListPresenter(Activity listActivity, ListContract.ListViewContract contract, UrlContents urlContents, LinearLayoutManager linearLayoutManager) {
+        this.listActivity = listActivity;
         this.mView = contract;
         this.urlContents = urlContents;
+        this.linearLayoutManager = linearLayoutManager;
         doctorList = null;
 
         mView.setPresenter(this);
@@ -40,8 +43,8 @@ class ListPresenter implements ListContract.ListPresenterContract {
 
 
     @Override
-    public void getDoctorAPIList() {
-        String fullUrl = Utils.uriParser(urlContents, 3);
+    public void getDoctorAPIList(int decider) {
+        String fullUrl = Utils.uriParser(urlContents, decider);
 
         Call<DoctorData> call = Utils.getDoctorRequestData(urlContents.getBaseUrl(), fullUrl, urlContents.getBearer());
 
@@ -49,55 +52,31 @@ class ListPresenter implements ListContract.ListPresenterContract {
             @Override
             public void onResponse(@NonNull Call<DoctorData> call, @NonNull Response<DoctorData> response) {
 
-
                 if (response.body() != null) {
                     doctorList = response.body().getListDoctors();
-                    mView.makeToast(doctorList.get(0).getName());
 
+                    docAdapter = Utils.getDoctorAdapter((AppCompatActivity)listActivity, doctorList);
 
-                    setAdapter();
+                    mView.setDoctorAdapter(docAdapter);
 
                 } else
                     mView.makeToast(listActivity.getString(R.string.login_fail));
-
-
             }
 
             @Override
             public void onFailure(@NonNull Call<DoctorData> call, @NonNull Throwable t) {
 
                 mView.makeToast(listActivity.getString(R.string.login_fail));
-
             }
         });
     }
 
-    DoctorAdapter mAdapter;
-
-    public void setAdapter(){
-
-
-
-        for(int i = 0; doctorList.size()>i; i++){
-            if(doctorList.get(i).getPhotoId()!=null)
-                Log.d("Somesomesomesome", doctorList.get(i).getPhotoId());
-        }
-        Log.d("Somesome",urlContents.getPathToken());
-        Log.d("Somesome",urlContents.getPathToken());
-        Log.d("Somesome",urlContents.getPathToken());
-
-        mView.toogleLayoutVisibility();
-        RecyclerView doctorRecyclerView = listActivity.findViewById(R.id.recycler_view_doctors);
-        doctorRecyclerView.setLayoutManager(new LinearLayoutManager(listActivity.getApplicationContext()));
-
-        mAdapter = new DoctorAdapter((AppCompatActivity)listActivity, doctorList);
-
-        doctorRecyclerView.setAdapter(mAdapter);
-    }
 
     public boolean isDoctorListWithContents(){
         return doctorList!=null;
     }
 
-
+    public LinearLayoutManager getLinearLayoutManager() {
+        return linearLayoutManager;
+    }
 }

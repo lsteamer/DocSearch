@@ -2,6 +2,7 @@ package lsteamer.elmexicano.com.docsearch.list;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 
 import lsteamer.elmexicano.com.docsearch.R;
@@ -13,6 +14,7 @@ public class ListActivity extends AppCompatActivity {
     private ListView listView;
     private ListPresenter listPresenter;
     private UrlContents urlContents;
+    private LinearLayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +31,10 @@ public class ListActivity extends AppCompatActivity {
         }
 
 
+        layoutManager = new LinearLayoutManager(this);
+
+
         //PresenterLayer
-        listPresenter = new ListPresenter(this, listView, urlContents);
+        listPresenter = new ListPresenter(this, listView, urlContents, layoutManager);
     }
 }

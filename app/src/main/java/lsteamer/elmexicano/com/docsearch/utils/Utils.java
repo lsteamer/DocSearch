@@ -11,14 +11,18 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.text.DecimalFormat;
+import java.util.List;
 
 import lsteamer.elmexicano.com.docsearch.R;
+import lsteamer.elmexicano.com.docsearch.list.RecylerViewAdapter.DoctorAdapter;
+import lsteamer.elmexicano.com.docsearch.list.model.Doctor;
 import lsteamer.elmexicano.com.docsearch.list.model.DoctorData;
 import lsteamer.elmexicano.com.docsearch.list.model.DoctorRequestData;
 import lsteamer.elmexicano.com.docsearch.login.model.LoginRequestData;
@@ -147,5 +151,8 @@ public class Utils {
     }
 
 
+    public static DoctorAdapter getDoctorAdapter(AppCompatActivity appActivity, List<Doctor> doctorList){
+        return new DoctorAdapter(appActivity, doctorList);
+    }
 
 }
