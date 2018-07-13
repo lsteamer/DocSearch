@@ -1,6 +1,8 @@
 package lsteamer.elmexicano.com.docsearch.list;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +13,7 @@ import lsteamer.elmexicano.com.docsearch.R;
 import lsteamer.elmexicano.com.docsearch.list.recycler.DoctorAdapter;
 import lsteamer.elmexicano.com.docsearch.list.model.Doctor;
 import lsteamer.elmexicano.com.docsearch.list.model.DoctorData;
+import lsteamer.elmexicano.com.docsearch.login.LoginActivity;
 import lsteamer.elmexicano.com.docsearch.utils.UrlContents;
 import lsteamer.elmexicano.com.docsearch.utils.Utils;
 import retrofit2.Call;
@@ -40,8 +43,6 @@ class ListPresenter implements ListContract.ListPresenterContract {
 
     @Override
     public void getDoctorAPIList(int decider) {
-
-
         String fullUrl = Utils.uriParser(urlContents, decider, null);
 
         Call<DoctorData> call = Utils.getDoctorRequestData(urlContents.getBaseUrl(), fullUrl, urlContents.getBearer());
@@ -63,16 +64,34 @@ class ListPresenter implements ListContract.ListPresenterContract {
                     docAdapter = Utils.getDoctorAdapter((AppCompatActivity) listActivity, doctorList, urlContents);
 
                     mView.setDoctorAdapter(docAdapter);
-                } else
+                } else{
                     mView.makeToast(listActivity.getString(R.string.login_fail));
+                    startLoginActivity();
+                }
             }
 
             @Override
             public void onFailure(@NonNull Call<DoctorData> call, @NonNull Throwable t) {
                 mView.makeToast(listActivity.getString(R.string.login_fail));
+
             }
         });
     }
+
+
+    /**
+     * This Method only gets called if getDoctorAPIList encounters an issue
+     * sending the user back to the first activity
+     */
+    private void startLoginActivity() {
+        Intent loginIntent = Utils.getIntent(listActivity, LoginActivity.class);
+
+        //Ending this Activity
+        listActivity.finish();
+        //Calling the next one
+        listActivity.startActivity(loginIntent);
+    }
+
 
     /*
      *  This method goes through the List<Doctor> and
