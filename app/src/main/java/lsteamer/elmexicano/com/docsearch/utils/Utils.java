@@ -2,26 +2,20 @@ package lsteamer.elmexicano.com.docsearch.utils;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
 
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.tasks.OnSuccessListener;
-
 import java.text.DecimalFormat;
 import java.util.List;
 
 import lsteamer.elmexicano.com.docsearch.R;
-import lsteamer.elmexicano.com.docsearch.list.RecylerViewAdapter.DoctorAdapter;
+import lsteamer.elmexicano.com.docsearch.list.recycler.DoctorAdapter;
 import lsteamer.elmexicano.com.docsearch.list.model.Doctor;
 import lsteamer.elmexicano.com.docsearch.list.model.DoctorData;
 import lsteamer.elmexicano.com.docsearch.list.model.DoctorRequestData;

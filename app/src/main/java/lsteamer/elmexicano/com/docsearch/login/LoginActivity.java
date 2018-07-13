@@ -12,10 +12,10 @@ import lsteamer.elmexicano.com.docsearch.utils.Utils;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private FusedLocationProviderClient locationClient;
-    private LoginView loginView;
-    private LoginPresenter loginPresenter;
-    private UrlContents urlContents;
+    public FusedLocationProviderClient locationClient;
+    public LoginView loginView;
+    public LoginPresenter loginPresenter;
+    public UrlContents urlContents;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

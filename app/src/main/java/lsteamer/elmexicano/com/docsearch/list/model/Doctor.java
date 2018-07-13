@@ -5,6 +5,8 @@ import com.google.gson.annotations.SerializedName;
 
 public class Doctor {
 
+    //A helper class that holds the strings needed to create the Urls
+
     @SerializedName("id")
     @Expose
     private String id;

@@ -25,9 +25,6 @@ import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 
 class LoginPresenter implements LoginContract.LoginPresenterContract {
 
-
-    private static String TAG = "LoginPresenter";
-
     private FusedLocationProviderClient locationClient;
     private Activity loginActivity;
     private LoginContract.LoginViewContract mView;
@@ -53,13 +50,13 @@ class LoginPresenter implements LoginContract.LoginPresenterContract {
         //If we have locationPermission requests AND There's something in the Username/Password fields
         if (requestLocationPermission() && validateTextInput()) {
             setLocation();
+
             //Show a loading bar
             mView.toggleLayoutVisibility();
 
             String fullUrl = Utils.uriParser(urlContents, 1);
 
             Call<LoginData> call = Utils.getLoginRequestData(urlContents.getBaseUrl(), fullUrl);
-
 
             //Toast to let the user know that we're working on it.
             mView.makeToast(loginActivity.getString(R.string.almost_there));
@@ -95,10 +92,9 @@ class LoginPresenter implements LoginContract.LoginPresenterContract {
 
     private void startListActivity() {
 
-        //Call the new activity
         Intent listIntent = Utils.getIntent(loginActivity, ListActivity.class);
 
-        //Sending the Array
+        //Sending the urlContents-helper class
         Bundle bundle = Utils.getNewBundle();
         bundle.putSerializable(loginActivity.getString(R.string.url_serializable_tag), urlContents);
         listIntent.putExtras(bundle);
@@ -128,7 +124,6 @@ class LoginPresenter implements LoginContract.LoginPresenterContract {
                     if (location != null) {
                         urlContents.setLatValue(Utils.getNumericStringTrimmedDecimals(location.getLatitude()));
                         urlContents.setLngValue(Utils.getNumericStringTrimmedDecimals(location.getLongitude()));
-
                     }
                 }
             });

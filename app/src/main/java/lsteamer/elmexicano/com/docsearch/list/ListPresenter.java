@@ -4,14 +4,11 @@ import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import lsteamer.elmexicano.com.docsearch.R;
-import lsteamer.elmexicano.com.docsearch.list.RecylerViewAdapter.DoctorAdapter;
+import lsteamer.elmexicano.com.docsearch.list.recycler.DoctorAdapter;
 import lsteamer.elmexicano.com.docsearch.list.model.Doctor;
 import lsteamer.elmexicano.com.docsearch.list.model.DoctorData;
 import lsteamer.elmexicano.com.docsearch.utils.UrlContents;
@@ -45,8 +42,6 @@ class ListPresenter implements ListContract.ListPresenterContract {
     @Override
     public void getDoctorAPIList(int decider) {
         String fullUrl = Utils.uriParser(urlContents, decider);
-
-        Log.d("DOCTORS DUDE", fullUrl);
 
         Call<DoctorData> call = Utils.getDoctorRequestData(urlContents.getBaseUrl(), fullUrl, urlContents.getBearer());
 

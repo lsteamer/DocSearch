@@ -4,7 +4,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -22,7 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnEditorAction;
 import lsteamer.elmexicano.com.docsearch.R;
-import lsteamer.elmexicano.com.docsearch.list.RecylerViewAdapter.DoctorAdapter;
+import lsteamer.elmexicano.com.docsearch.list.recycler.DoctorAdapter;
 
 public class ListView extends Fragment implements ListContract.ListViewContract {
 
@@ -50,7 +49,6 @@ public class ListView extends Fragment implements ListContract.ListViewContract 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.list_fragment, container, false);
-
 
         ButterKnife.bind(this, view);
 

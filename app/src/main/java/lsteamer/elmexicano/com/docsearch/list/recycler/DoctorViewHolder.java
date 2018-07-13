@@ -1,6 +1,5 @@
-package lsteamer.elmexicano.com.docsearch.list.RecylerViewAdapter;
+package lsteamer.elmexicano.com.docsearch.list.recycler;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;

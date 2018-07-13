@@ -2,7 +2,7 @@ package lsteamer.elmexicano.com.docsearch.list;
 
 import android.support.v7.widget.LinearLayoutManager;
 
-import lsteamer.elmexicano.com.docsearch.list.RecylerViewAdapter.DoctorAdapter;
+import lsteamer.elmexicano.com.docsearch.list.recycler.DoctorAdapter;
 
 public interface ListContract {
 

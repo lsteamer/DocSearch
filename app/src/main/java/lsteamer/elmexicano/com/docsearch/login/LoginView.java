@@ -25,8 +25,6 @@ import static android.support.v4.util.Preconditions.checkNotNull;
 public class LoginView extends Fragment implements LoginContract.LoginViewContract {
 
 
-    private static String TAG = "LoginView";
-
     private LoginContract.LoginPresenterContract mPresenter;
 
 
