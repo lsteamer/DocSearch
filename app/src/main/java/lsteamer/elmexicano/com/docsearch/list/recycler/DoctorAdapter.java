@@ -24,6 +24,7 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorViewHolder> {
     private LayoutInflater inflater;
     private List<Doctor> doctorList;
     private UrlContents urlContents;
+    private GlideUrl glideUrl;
 
     public DoctorAdapter(AppCompatActivity mActivity, List<Doctor> doctorList, UrlContents urlContents) {
         this.mActivity = mActivity;
@@ -49,7 +50,7 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorViewHolder> {
 
         if (doctor.getPhotoId() != null) {
             //if there's an image we dynamically get the images through Glide
-            GlideUrl glideUrl = new GlideUrl(doctor.getPhotoIdUrl(), new LazyHeaders.Builder().addHeader(urlContents.getAuthorization(), urlContents.getBearer()).build());
+            glideUrl = new GlideUrl(doctor.getPhotoIdUrl(), new LazyHeaders.Builder().addHeader(urlContents.getAuthorization(), urlContents.getBearer()).build());
             Glide.with(mActivity).load(glideUrl).into(holder.getDoctorProfileImageInHolder());
         } else
             holder.getDoctorProfileImageInHolder().setImageResource(R.drawable.doctor_profile_default);
