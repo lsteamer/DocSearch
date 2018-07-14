@@ -73,6 +73,7 @@ class LoginPresenter implements LoginContract.LoginPresenterContract {
                         startListActivity();
                     } else
                         mView.makeToast(loginActivity.getString(R.string.login_fail));
+                        mView.toggleLayoutVisibility();
                 }
 
                 @Override

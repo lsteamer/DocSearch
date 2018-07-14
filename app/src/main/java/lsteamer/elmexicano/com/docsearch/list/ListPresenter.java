@@ -66,6 +66,7 @@ class ListPresenter implements ListContract.ListPresenterContract {
                     mView.setDoctorAdapter(docAdapter);
                 } else{
                     mView.makeToast(listActivity.getString(R.string.login_fail));
+                    mView.toggleLayoutVisibility();
                     startLoginActivity();
                 }
             }
@@ -73,6 +74,7 @@ class ListPresenter implements ListContract.ListPresenterContract {
             @Override
             public void onFailure(@NonNull Call<DoctorData> call, @NonNull Throwable t) {
                 mView.makeToast(listActivity.getString(R.string.login_fail));
+                startLoginActivity();
 
             }
         });

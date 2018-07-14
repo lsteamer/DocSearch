@@ -42,9 +42,9 @@ public class Utils {
      * @param urlContents Helper class with the different Strings needed
      * @param decider int that selects which kind of url is needed
      * @param imageToken Can be null, has the path for the image url.
-     * @return
+     * @return the url needed as a string value.
      */
-    public static String uriParser(@NonNull UrlContents urlContents, @NonNull int decider, String imageToken) {
+    public static String uriParser(@NonNull UrlContents urlContents, int decider, String imageToken) {
         Uri uri;
 
         switch (decider) {
@@ -75,7 +75,7 @@ public class Utils {
                         .build();
                 return uri.toString();
             case 4:
-                //creting the url for the search of images
+                //creating the url for the search of images
                 uri = Uri.parse(urlContents.getFullUrlImage()).buildUpon()
                         .appendPath(imageToken)
                         .build();
